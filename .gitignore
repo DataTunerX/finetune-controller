@@ -26,3 +26,5 @@ Dockerfile.cross
 *~
 tuning/data
 tuning/result
+
+__pycache__
