@@ -1,0 +1,24 @@
+apiVersion: finetune.datatunerx.io/v1beta1
+kind: Finetune
+metadata:
+  labels:
+    app.kubernetes.io/name: finetune
+    app.kubernetes.io/instance: finetune-sample
+    app.kubernetes.io/part-of: meta-server
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: meta-server
+  name: finetune-sample
+  namespace: datatunerx-dev
+spec:
+  llm: llama2-7b
+  dataset: example-dataset-liantiao
+  hyperparameter:
+    hyperparameterRef: happu
+    overrides:
+      batchSize: 2
+      epochs: 30
+  node: 2
+  image:
+    name: rayproject/ray271-llama2-7b-finetune:20231218
+    path: /tmp/llama2-7b
+

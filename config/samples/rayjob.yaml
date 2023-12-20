@@ -1,0 +1,55 @@
+apiVersion: ray.io/v1
+kind: RayJob
+metadata:
+  name: llama-sft
+spec:
+  entrypoint: python train.py --num_workers 2 --deepspeed /tuning/ds_config.json --output_dir result --per_device_train_batch_size 2  --per_device_eval_batch_size 2 --lora_target q_proj,v_proj --model_name_or_path /tmp/llama2-7b --num_train_epochs 1 --train_path s3://datatunerx/DataSet/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning.csv?endpoint_override=http://10.29.205.33:7500
+  rayClusterSpec:
+    rayVersion: '2.7.1'
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: '0.0.0.0'
+        num-gpus: "0"
+      serviceType: NodePort
+      template:
+        spec:
+          nodeSelector:
+            node-role.kubernetes.io/datatunerx-dev: ""
+          containers:
+            - name: ray-head
+              image: rayproject/ray271-llama2-7b-finetune:20231205
+              ports:
+                - containerPort: 6379
+                  name: gcs-server
+                - containerPort: 8265
+                  name: dashboard
+                - containerPort: 10001
+                  name: client
+                - containerPort: 8000
+                  name: serve
+              resources:
+                requests:
+                  cpu: "1000m"
+    workerGroupSpecs:
+      - replicas: 2
+        minReplicas: 1
+        maxReplicas: 5
+        groupName: small-group
+        rayStartParams: {}
+        template:
+          spec:
+            nodeSelector:
+              node-role.kubernetes.io/datatunerx-dev: ""
+            containers:
+              - name: ray-worker
+                image: rayproject/ray271-llama2-7b-finetune:20231205
+                lifecycle:
+                  preStop:
+                    exec:
+                      command: [ "/bin/sh","-c","ray stop" ]
+                resources:
+                  limits:
+                    nvidia.com/gpu: "1"
+                  requests:
+                    cpu: "1000m"
+                    nvidia.com/gpu: "1"

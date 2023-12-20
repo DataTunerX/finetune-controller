@@ -1,0 +1,30 @@
+apiVersion: core.datatunerx.io/v1beta1
+kind: Hyperparameter
+metadata:
+  creationTimestamp: "2023-11-13T02:56:51Z"
+  generation: 2
+  name: happu
+  namespace: datatunerx-dev
+  resourceVersion: "11449701"
+  uid: d4adb89f-1f19-47de-beec-589688bde006
+spec:
+  objective:
+    type: SFT
+  parameters:
+    FP16: false
+    PEFT: true
+    batchSize: 32
+    blockSize: 512
+    epochs: 10123156464
+    gradAccSteps: 1
+    int4: false
+    int8: false
+    learningRate: "0.001"
+    loRA_Alpha: "32.0"
+    loRA_Dropout: "0.1"
+    loRA_R: "4"
+    optimizer: AdamW
+    scheduler: Cosine
+    trainerType: Standard
+    warmupRatio: "0.1"
+    weightDecay: "0.0001"

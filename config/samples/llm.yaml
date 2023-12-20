@@ -1,0 +1,33 @@
+apiVersion: core.datatunerx.io/v1beta1
+kind: LLM
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"core.datatunerx.io/v1beta1","kind":"LLM","metadata":{"annotations":{},"name":"llama2-7b","namespace":"datatunerx-dev"},"spec":{"llmMetdata":{"computeInfrastructure":{"hardware":{"cpu":4,"memory":"28Gi","vRam":"6Gi"}},"domain":["NLP"],"frameworks":["PyTorch"],"languages":["English"],"license":["https://ai.meta.com/resources/models-and-libraries/llama-downloads/"],"llmImageConfig":{"image":"harobor.custome.com/llama2-7b:v1","path":"/data/llama2-7b"},"name":"Llama-2-7b","tasks":["Text Generation"]}}}
+  creationTimestamp: "2023-11-02T05:05:55Z"
+  generation: 1
+  name: llama2-7b
+  namespace: datatunerx-dev
+  resourceVersion: "1893068"
+  uid: 1a100892-fd43-41ba-aa10-9a0c3dbd82af
+spec:
+  llmMetdata:
+    computeInfrastructure:
+      hardware:
+        cpu: 4
+        memory: 28Gi
+        vRam: 6Gi
+    domain:
+      - NLP
+    frameworks:
+      - PyTorch
+    languages:
+      - English
+    license:
+      - https://ai.meta.com/resources/models-and-libraries/llama-downloads/
+    llmImageConfig:
+      image: harobor.custome.com/llama2-7b:v1
+      path: /data/llama2-7b
+    name: Llama-2-7b
+    tasks:
+      - Text Generation

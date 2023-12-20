@@ -1,0 +1,42 @@
+apiVersion: extension.datatunerx.io/v1beta1
+kind: Dataset
+metadata:
+  name: example-dataset-liantiao
+  namespace: datatunerx-dev
+spec:
+  datasetCard:
+    datasetCardRef: configmap-dataset-readme
+  datasetFiles:
+    source: ""
+  datasetMetadata:
+    datasetInfo:
+      features:
+        - dataType: string
+          mapTo: instruction
+          name: instruction
+        - dataType: string
+          mapTo: output
+          name: response
+      subsets:
+        - name: default
+          splits:
+            test:
+              file: s3://datatunerx/DataSet/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning.csv?endpoint_override=http://10.29.205.33:7500://10.29.205.33:7501/datatunerx/DataSet/alpaca_data_en_52k_test.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=K9GZU3E918K576N7MX8A%2F20231124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231124T094340Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJLOUdaVTNFOTE4SzU3Nk43TVg4QSIsImV4cCI6MTcwMDgyMjU3OSwicGFyZW50IjoiYWlnYyJ9.vJF1ltyT8Rdlkh65VKCoTFaeX4rvQi8BjPBeiEiQw2R8QFzOiOeThNigU-aBEiBzIKMqwob3DcL-vmVfiUXNFQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=22e287e3932abd6e130a05f5d0a774bfdea255b8944a3a1b370c9670e79bc9f6
+            train:
+              file: s3://datatunerx/2/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning_min.csv?endpoint_override=http://10.33.1.10:32575
+            validate:
+              file: s3://datatunerx/2/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Validation_min.csv?endpoint_override=http://10.33.1.10:32575
+    languages:
+      - zh-CN
+    license: CC BY-NC
+    plugin:
+      loadPlugin: true
+      name: dataplugin-sample-zhuanyong
+      parameters: '{"Train":"s3://datatunerx/DataSet/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning.csv?endpoint_override=http://10.29.205.33:7500","Test":"s3://datatunerx/DataSet/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning.csv?endpoint_override=http://10.29.205.33:7500://10.29.205.33:7501/datatunerx/DataSet/alpaca_data_en_52k_test.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=K9GZU3E918K576N7MX8A%2F20231124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231124T094340Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJLOUdaVTNFOTE4SzU3Nk43TVg4QSIsImV4cCI6MTcwMDgyMjU3OSwicGFyZW50IjoiYWlnYyJ9.vJF1ltyT8Rdlkh65VKCoTFaeX4rvQi8BjPBeiEiQw2R8QFzOiOeThNigU-aBEiBzIKMqwob3DcL-vmVfiUXNFQ&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=22e287e3932abd6e130a05f5d0a774bfdea255b8944a3a1b370c9670e79bc9f6","Validate":"s3://datatunerx/DataSet/DCE%20%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%E9%97%AE%E7%AD%94data_En_Trainning.csv?endpoint_override=http://10.29.205.33:7500","SubsetName":"default"}'
+    size: n < 1K
+    tags: []
+    task:
+      name: Text Generation
+      subTasks: []
+status:
+  state: READY
