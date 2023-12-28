@@ -328,7 +328,7 @@ def main():
     print("preprocess_dataset")
     columns_map = {
         "instruction": "instruction",
-        "output1": "response"
+        "output": "response"
     }
     if data_args.columns:
         print(data_args.columns)
