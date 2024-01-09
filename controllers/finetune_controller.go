@@ -468,7 +468,7 @@ func getRayJobEntrypoint(ctx context.Context, finetune *finetunev1beta1.Finetune
 
 	entrypoint = append(entrypoint, "--train_path", dataset.Spec.DatasetMetadata.DatasetInfo.Subsets[0].Splits.Train.File)
 
-	if dataset.Spec.DatasetMetadata.DatasetInfo.Subsets[0].Splits.Validate.File != "" {
+	if dataset.Spec.DatasetMetadata.DatasetInfo.Subsets[0].Splits.Validate != nil && dataset.Spec.DatasetMetadata.DatasetInfo.Subsets[0].Splits.Validate.File != "" {
 		entrypoint = append(entrypoint, "--evaluation_path", dataset.Spec.DatasetMetadata.DatasetInfo.Subsets[0].Splits.Validate.File)
 	}
 
@@ -484,9 +484,7 @@ func getRayJobEntrypoint(ctx context.Context, finetune *finetunev1beta1.Finetune
 	entrypoint = append(entrypoint, "--deepspeed", "/tuning/ds_config.json")
 	entrypoint = append(entrypoint, "--lora_target", "q_proj,v_proj")
 	entrypoint = append(entrypoint, "--lr_scheduler_type", string(parameters.Scheduler))
-	//entrypoint = append(entrypoint, "--lr_scheduler_type", "cosine")
 	entrypoint = append(entrypoint, "--optim", string(parameters.Optimizer))
-	//entrypoint = append(entrypoint, "--optim", "adamw_torch")
 
 	quantization := ""
 	if parameters.Int8 {
